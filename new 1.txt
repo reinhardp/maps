@@ -1,0 +1,47 @@
+Hallo allerseits,
+
+Beispiel: Ich rufe die mit laravel erstellte Webseite so auf in meiner lokalen Installation auf:
+10.0.0.3/maps/public (bitte jetzt nicht darüber diskutieren)
+
+1) Zuerst bekomme ich eine "default" Seite.
+2) Ich logge mich als Admin ein. Ok, hier komme ich nun auf eine Startseite die in routs.php folgendermaßen definiert ist (zur Zeit):
+
+
+[PHP]
+Route::get('/', function () {
+    
+    if(Auth::user()) {
+        
+        if(Auth::user()->adminaccess == 1) {
+            $events = array();
+            return view('admin.events',[
+                'events' => $events,
+            ]);
+        } elseif(Auth::user()->adminaccess == 0) {
+            $events = array();
+            return view('user.events',[
+                'events' => $events,
+            ]);
+        
+        }
+    }
+    return view('welcome');
+});
+
+
+[/PHP]
+
+Da ist schon mal der erste Fehler:
+
+return view('admin.events', ...sollte eigentlich alle Events anzeigen die der Admin sehen kann. Ich weiß das $events = array(); nichts ausgeben kann.
+Aber wie kann ich den eingeloggten (Admin) User hier "umleiten" das dann die Events angezeigt werden?
+
+Das zweite Problem ist folgendes:
+
+1) Ich bin als Admin User eingeloggt.
+2) Dann möchte ich einen neuen Event erzeugen.
+
+Der neue Event wird in der DB angelegt. Aber dann komme ich
+
+
+
