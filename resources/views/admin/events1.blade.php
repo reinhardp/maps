@@ -20,38 +20,25 @@
 		obj = document.getElementById(inl);
 		obj.style.display = 'none';
 	}
-	function cancel(id) {
-		var inl = 'inline_' + id;
-		obj = document.getElementById(inl);
-		obj.style.display = 'none';
-	}
 </script>
-<div class="container">
-
-
-<div class="table-responsive">
-<table class="table table-sm">
-	<thead>
-	</thead>
-	<tbody>
+<div class="panel-body">
+	<a  class="btn btn-default" href="{{ url('/admin/addevent') }}" >Add Event</a>
+	
 	@foreach ($events as $event)
-	<tr class="table-text active">
-		<td class="table-text">{{'Event ' . $event->id . ' /' . $event->country  . ' ' . date_format(date_create($event->start), 'd.m') . ' - ' . date_format(date_create($event->end), 'd.m.Y') }} </td>
-		<td class="table-text"> </td>
-		<td class="table-text"> </td>
-		<td class="table-text"> </td>
-		<td class="table-text"><button type="submit" class="btn btn-default" id="edit" onclick="edit({{ $event->id }});">edit</button></td>
-		<td class="table-text">
-			@if($event->state == 'active')
-				<a id="delete" class="btn btn-default" href="{{ url('/admin/hideevent/' . $event->id ) }}">hide</a>
-			@else
-				<a id="delete" class="btn btn-default" href="{{ url('/admin/hideevent/' . $event->id ) }}">unhide</a>
-			@endif
-		</td>
-		<td class="table-text"><a id="delete" class="btn btn-default" href="{{ url('/admin/deleteevent/' . $event->id ) }}">delete</a></td>
-	</tr>
-	<tr id="{{'inline_' . $event->id}}" class="{{'inline_' . $event->id}}" style="display: none;" class="active">
-		<td colspan="7" class="active">
+		<div class="col-sm-3"></div>
+		<div lass="col-sm-4">{{'Event ' . $event->id . ' /' . $event->country  . ' ' . date_format(date_create($event->start), 'd.m') . ' - ' . date_format(date_create($event->end), 'd.m.Y') }} 
+		<a id="edit" class="btn btn-default" href="#" onclick="edit({{ $event->id }});" >edit</a> 
+		@if($event->state == "active")
+			<a id="hide" class="btn btn-default" href="#" onclick="hide({{ $event->id }});">hide</a> 
+		@else
+			<a id="hide" class="btn btn-default disabled" href="{{ url('/admin/hideevent/' . $event->id ) }}">hide</a>
+		@endif
+		<a id="delete" class="btn btn-default" href="{{ url('/admin/deleteevent/' . $event->id ) }}">delete</a> 
+		</div >
+			<!-- Editor: -->
+		<div id="{{'inline_' . $event->id}}" class="{{'inline_' . $event->id}}" style="display: none;">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-5">
 			<form action="{{ url('admin/saveevent/' .$event->id ) }}" method="POST" class="form-horizontal" >
 				{!! csrf_field() !!}
 				
@@ -124,22 +111,13 @@
 						<button type="submit" class="btn btn-default">
 						save
 						</button>
-						<a href="#" class="btn btn-default" onclick="cancel({{ $event->id }})">
-						cancel
-						</a>
 					</div>
 				</div>	
 			</form>
-			
-		</td>
-	</tr>
+		</div>
+		</div>  <!-- End Editor -->
+		<div class="clear"></div>
 	@endforeach
-	</tbody>
-</table>
 </div>
-<div class="btn btn-default btn-block" >
-	<a  class="btn btn-default" href="{{ url('/admin/addevent') }}" >Add new event</a>
-</div>
-{{ $events->links() }}
-</div>
+
 @endsection

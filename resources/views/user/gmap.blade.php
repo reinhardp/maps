@@ -57,12 +57,42 @@
   </head>
   <body>
     <div id="map"  style="height:50%;width:100%;margin: 10px; auto;"> </div>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-bottom">
 		<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 		<input id="clat" type="text" >
 		<input id="clong" type="text">
+		
 	</nav>
-    <script>
+	<div>	<!-- events -->
+		<div> <!-- left -->
+			<div></div> <!-- cat 1 -->
+			<div></div> <!-- cat 2 -->
+		</div>
+		<div> <!-- right -->
+			<div></div> <!-- cat 1 -->
+			<div></div> <!-- cat 2 -->
+		</div>
+	</div> <!-- end events -->
+    <script type="text/javascript">
+		var events = Array();
+		var url = "{{ url('/user/loadevents') }}";
+		function loadeavents() {
+			$.ajax({
+				url: url,
+				type: 'get',
+				success: function( data, textStatus, jQxhr ){
+					var temp = jQuery.parseJSON(data);
+					var eventsdata = temp.events.data;
+					var countries = temp.countries;
+					var categories = temp.categories;
+					var x = 1;
+				},
+				error: function( jqXhr, textStatus, errorThrown ){
+					console.log( errorThrown );
+				}
+			});
+		}
+		loadeavents();
       // This example adds a search box to a map, using the Google Place Autocomplete
       // feature. People can enter geographical searches. The search box will return a
       // pick list containing a mix of places and predicted search terms.
@@ -81,7 +111,7 @@
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(input);
 
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {

@@ -14,7 +14,6 @@ Route::auth();
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 
 Route::get('/', function () {
-	
 	// if(Auth::user()) {
 		
 		// if(Auth::user()->adminaccess == 1) {
@@ -37,14 +36,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-	Route::group(['prefix' => 'admin'], function() {
+	Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 		Route::get('/events', 'EventsController@index');
 		Route::get('/addevent', 'EventsController@addevent');
 		Route::post('/createevent', 'EventsController@create');
-
-
+		Route::get('/editevent/{event}', 'EventsController@editevent');
+		Route::get('/hideevent/{event}', 'EventsController@hideevent');
+		Route::get('/deleteevent/{event}', 'EventsController@deleteevent');
+		Route::post('/saveevent/{event?}', 'EventsController@saveevent');
+		
 	 });
 
+	Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {	 
+		Route::get('/map', 'EventsController@map');
+		Route::get('/loadevents','EventsController@loadevents');
+
+	 });
 
 Route::get('/home', 'HomeController@index');
 

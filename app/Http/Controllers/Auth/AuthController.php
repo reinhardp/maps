@@ -9,7 +9,8 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Log;
-
+use App\Country;
+use App\Events;
 class AuthController extends Controller
 {
     /*
