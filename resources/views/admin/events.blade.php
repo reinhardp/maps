@@ -25,6 +25,27 @@
 		obj = document.getElementById(inl);
 		obj.style.display = 'none';
 	}
+	function deleteevent(id)
+	{
+		var r = confirm('Are you sure?');
+		if(r == true) {
+			url = "{{ url('/admin/deleteevent/') }}"; 
+			url = url + '/' + id;
+			var x = 1;
+			$.ajax({
+				url: url,
+				type: 'get',
+				success: function( data, textStatus, jQxhr ){
+					window.open("{{ url('/admin/events') }}","_self");
+					var x = 1;
+				},
+				error: function( jqXhr, textStatus, errorThrown ){
+					console.log( errorThrown );
+				}
+			});
+
+		}
+	}
 </script>
 <div class="container">
 
@@ -48,7 +69,7 @@
 				<a id="delete" class="btn btn-default" href="{{ url('/admin/hideevent/' . $event->id ) }}">unhide</a>
 			@endif
 		</td>
-		<td class="table-text"><a id="delete" class="btn btn-default" href="{{ url('/admin/deleteevent/' . $event->id ) }}">delete</a></td>
+		<td class="table-text"><a id="delete" class="btn btn-default" href="#" onclick="deleteevent({{ $event->id  }});" >delete</a></td>
 	</tr>
 	<tr id="{{'inline_' . $event->id}}" class="{{'inline_' . $event->id}}" style="display: none;" class="active">
 		<td colspan="7" class="active">

@@ -63,7 +63,8 @@
 		<input id="clong" type="text">
 		
 	</nav>
-	<div>	<!-- events -->
+
+	<div class="viewModelmapeventscontainer" id="viewModelmapeventscontainer">	<!-- events -->
 		<div> <!-- left -->
 			<div></div> <!-- cat 1 -->
 			<div></div> <!-- cat 2 -->
@@ -85,6 +86,7 @@
 					var eventsdata = temp.events.data;
 					var countries = temp.countries;
 					var categories = temp.categories;
+					
 					var x = 1;
 				},
 				error: function( jqXhr, textStatus, errorThrown ){
@@ -226,6 +228,8 @@
 
 
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKiExGyg7oAG0FTOJ4p-1ThEWsjL_eJ4k&libraries=places&callback=initAutocomplete"
-         async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKiExGyg7oAG0FTOJ4p-1ThEWsjL_eJ4k&libraries=places&callback=initAutocomplete" async defer></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+	<script src="{{ URL::asset('/js/app.js') }}"></script>
+
 @endsection

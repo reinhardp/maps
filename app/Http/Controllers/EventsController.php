@@ -57,9 +57,11 @@ class EventsController extends Controller
 
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
+		$countries = Country::orderBy('name', 'asc')->get();
 		//return redirect()->action('EventsController@index');
 		 return view('admin.events',[
 			 'events' => $events,
+			 'countries' => $countries,
 		 ]);
 	}
 
