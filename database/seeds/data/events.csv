@@ -1,0 +1,13 @@
+title;description;address;zip;country;lat;long;category;start;end;website;state
+Titel 1;Beschreigung 1;San Francisco;94101;USA;37.77017196507862;-122.42340087890625;cat1;2016-09-30;2016-10-02;www.redbullairrace.com;active
+Titel 2;Beschreigung 2;Budapest;1051;HUN;47.506069781910846;19.0557861328125;cat1;2016-09-23;2016-09-25;www.redbullairrace.com;active
+Titel 3;Beschreigung 3;Ascot;SL5;GBR;51.406380649390535;-0.6750583648681641;cat1;2016-10-14;2016-10-16;www.redbullairrace.com;active
+Titel 4;Beschreigung 4;Las Vegas;89101;USA;36.184441834883025;-115.12298583984375;cat2;2016-10-21;2016-10-23;www.redbullairrace.com;active
+Titel 5;Beschreigung 5;Spielberg;3390;AUT;47.207441281905;14.802017211914062;cat1;2016-10-28;2016-10-30;www.redbullairrace.com;active
+Titel 6;Beschreigung 6;Lausitzring;14589;DEU;51.53507120815272;13.93092155456543;cat2;2016-11-04;2016-11-06;www.redbullairrace.com;active
+Titel 7;Beschreigung 7;Chiba;12100;JPN;35.6517169333161;140.05508422851562;cat2;2016-11-11;2016-11-13;www.redbullairrace.com;active
+Titel 8;Beschreigung 8;Abu Dhabi;2233;ARE;24.363986126225182;54.70161437988281;cat1;2016-11-18;2016-11-20;www.redbullairrace.com;active
+Titel 9;Beschreigung 9;Indianapolis;46201;USA;39.78321267821705;-86.13143920898438;cat1;2016-11-25;2016-11-27;www.redbullairrace.com;active
+Titel 10;Beschreigung 10;Indianapolis;46201;USA;39.78321267821705;-86.13143920898438;cat1;2016-12-02;2016-12-04;www.redbullairrace.com;active
+Titel 11;Beschreigung 11;San Francisco;94101;USA;37.77017196507862;-122.42340087890625;cat1;2016-12-09;2016-12-11;www.redbullairrace.com;active
+Titel 12;Beschreigung 12;Ascot;SL5;GBR;51.406380649390535;-0.6750583648681641;cat1;2016-12-16;2016-12-18;www.redbullairrace.com;active

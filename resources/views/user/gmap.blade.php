@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
     <style>
       html, body {
         height: 100%;
@@ -53,8 +54,30 @@
       #target {
         width: 345px;
       }
+	  .listdata {
+		border-style: solid solid solid;
+		border-color: rgb(119, 224, 216);
+		border-width: 1px;
+		margin-left: 10px;
+		margin-top: 5px;
+		float: left;
+		background-color: #C0C0C0;		
+		  
+	  }
+	  .catheader {
+		  margin-right: 10px;
+		  margin-left: 10px;
+		  margin-bottom: 5px;
+		  background-color: #C0C0C0;
+		  width: 380px;
+	  }
+	  .catheaderright {
+		  margin-left: 10px;
+		  margin-bottom: 5px;
+		  background-color: #C0C0C0;
+		  //width: 280px;
+	  }
     </style>
-  </head>
   <body>
     <div id="map"  style="height:50%;width:100%;margin: 10px; auto;"> </div>
 	<nav class="navbar navbar-bottom">
@@ -63,18 +86,48 @@
 		<input id="clong" type="text">
 		
 	</nav>
-
-	<div class="viewModelmapeventscontainer" id="viewModelmapeventscontainer">	<!-- events -->
-		<div> <!-- left -->
+	
+	<div class="viewModelmapeventscontainer container" id="viewModelmapeventscontainer">	<!-- events -->
+		<div style="float: left; height: 50%; width: 50%; margin-right: 6px;"> <!-- left -->
+			<div class="catheader">Cat 1</div>
+			<div data-bind="foreach: cat1()"><!-- cat 1 -->
+				<div class="listdata">
+					<div style="width: 150px; float: left;" data-bind="text: start + ' - ' + end"></div><div style="float: left;">Cat 1</div>
+					<div style="display: block">
+						<div style="width: 150px;" data-bind="text: title"></div><div style="float: right;" data-bind="text: id"></div>
+					</div>
+					<div data-bind="text: address + ' / ' + country "></div>
+					<div style="height: 20px"></div>
+					<div data-bind="text: website"></div>
+					<a href="#" data-bind="click: $parent.showonmap" class="btn btn-default">show on map</a>
+				</div>
+				<div class="spacer"></div>
+			</div> 
+			
 			<div></div> <!-- cat 1 -->
-			<div></div> <!-- cat 2 -->
 		</div>
-		<div> <!-- right -->
-			<div></div> <!-- cat 1 -->
+		<div style="float: left; height: 50%; width: 30%; margin-left: 6px;"> <!-- right -->
+			<div class="catheaderright">Cat 2</div>
+			<div data-bind="foreach: cat2()"><!-- cat 1 -->
+				<div class="listdata">
+					<div style="width: 150px; float: left;" data-bind="text: start + ' - ' + end"></div><div style="float: left;">Cat 2</div>
+					<div style="display: block">
+						<div style="width: 150px;" data-bind="text: title"></div><div style="float: right;" data-bind="text: id"></div>
+					</div>
+					<div data-bind="text: address + ' / ' + country "></div>
+					<div style="height: 20px"></div>
+					<div data-bind="text: website"></div>
+					<a href="#" data-bind="click: $parent.showonmap" class="btn btn-default">show on map</a>
+				</div>
+				<div class="spacer"></div>
+			</div> 
+			
 			<div></div> <!-- cat 2 -->
 		</div>
 	</div> <!-- end events -->
     <script type="text/javascript">
+		sessionStorage['user'] = <?php echo Auth::User()->id; ?>;
+		var map;
 		var events = Array();
 		var url = "{{ url('/user/loadevents') }}";
 		function loadeavents() {
@@ -104,9 +157,9 @@
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
       function initAutocomplete() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 47.58393661978137, lng: 14.447021484375 },
-          zoom: 10,
+          zoom: 3,
           mapTypeId: google.maps.MapTypeId.SATELLITE
         });
         
@@ -145,7 +198,6 @@
 
 
          });
-
 
 
 
@@ -229,7 +281,9 @@
 
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKiExGyg7oAG0FTOJ4p-1ThEWsjL_eJ4k&libraries=places&callback=initAutocomplete" async defer></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
 	<script src="{{ URL::asset('/js/app.js') }}"></script>
+	<script type="text/javascript">
+		viewModelmapevents.load("{{ url('/user/loadevents') }}");
+	</script>
 
 @endsection

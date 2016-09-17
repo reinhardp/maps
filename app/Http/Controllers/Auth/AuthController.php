@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Log;
 use App\Country;
 use App\Events;
+use Session;
 class AuthController extends Controller
 {
     /*

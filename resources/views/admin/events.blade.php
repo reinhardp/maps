@@ -46,21 +46,27 @@
 
 		}
 	}
+	function allowDrop(ev) {
+		ev.preventDefault();
+	}
+	function drag(ev) {
+		ev.dataTransfer.setData("text", ev.target.id);
+	}
+	function drop(ev) {
+		ev.preventDefault();
+		var data = ev.dataTransfer.getData("text");
+		ev.target.appendChild(document.getElementById(data));
+	}
 </script>
 <div class="container">
 
 
 <div class="table-responsive">
 <table class="table table-sm">
-	<thead>
-	</thead>
 	<tbody>
 	@foreach ($events as $event)
-	<tr class="table-text active">
-		<td class="table-text">{{'Event ' . $event->id . ' /' . $event->country  . ' ' . date_format(date_create($event->start), 'd.m') . ' - ' . date_format(date_create($event->end), 'd.m.Y') }} </td>
-		<td class="table-text"> </td>
-		<td class="table-text"> </td>
-		<td class="table-text"> </td>
+	<tr class="table-text active" draggable="true" ondragover="allowDrop(event)" ondrop="drop(event)">
+		<td class="table-text"  >{{'Event ' . $event->id . ' /' . $event->country  . ' ' . date_format(date_create($event->start), 'd.m') . ' - ' . date_format(date_create($event->end), 'd.m.Y') }} </td>
 		<td class="table-text"><button type="submit" class="btn btn-default" id="edit" onclick="edit({{ $event->id }});">edit</button></td>
 		<td class="table-text">
 			@if($event->state == 'active')
@@ -72,7 +78,7 @@
 		<td class="table-text"><a id="delete" class="btn btn-default" href="#" onclick="deleteevent({{ $event->id  }});" >delete</a></td>
 	</tr>
 	<tr id="{{'inline_' . $event->id}}" class="{{'inline_' . $event->id}}" style="display: none;" class="active">
-		<td colspan="7" class="active">
+		<td colspan="4" class="active">
 			<form action="{{ url('admin/saveevent/' .$event->id ) }}" method="POST" class="form-horizontal" >
 				{!! csrf_field() !!}
 				
@@ -116,8 +122,13 @@
 					<label for="category" class="col-sm-3 control-label">category</label>
 					<div class="col-sm-6">
 						<select name="category" id="category" class="category">
-							<option value="cat1">cat 1</option>
-							<option value="cat2">cat 2</option>
+							@foreach($categories as $category)
+							@if($event->category == $category['value'])
+								<option value="{{ $category['value'] }}" selected>{{ $category['name'] }}</option>
+							@else
+								<option value="{{ $category['value'] }}">{{ $category['name'] }}</option>
+							@endif
+							@endforeach
 						</select>
 					</div>
 				</div>

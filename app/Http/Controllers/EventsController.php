@@ -11,6 +11,8 @@ use App\Events;
 use Auth;
 use Log;
 use Input;
+use DateTime;
+use Session;
 class EventsController extends Controller
 {
 	
@@ -29,10 +31,15 @@ class EventsController extends Controller
 		$events = Events::orderBy('id', 'asc')
 		//->get();
 		->paginate(10);
+		$categories = [
+					['name' => 'Cat 1', 'value' => 'cat1' ],
+					['name' => 'Cat 2', 'value' => 'cat2'],
+					];
 		$countries = Country::orderBy('name', 'asc')->get();
 		return view('admin.events',[
 			'events' => $events,
 			'countries' => $countries,
+			'categories' => $categories,
 		]);
 	}
 	public function create(Request $request) {
@@ -118,10 +125,16 @@ class EventsController extends Controller
 		$event = Events::where('id',$id)->first();
 		$country = Country::where('iso3', $event->country)->first();
 		$countries = Country::orderBy('name', 'asc')->get();
+		$categories = array(
+					array('name' => 'cat 1', 'value' =>'cat1' ),
+					array('name' => 'cat 2', 'value' =>'cat2')
+					);
+		
 		return view('admin.editevent',[
 			'event' => $event,
 			'countries' => $countries,
 			'eventcountry' => $country->name,
+			'categories' => $categories,
 		]);
 	}
 	public function saveevent(Request $request, $id) {
@@ -155,10 +168,20 @@ class EventsController extends Controller
 	}
 
 	public function loadevents() {
-		$events = Events::orderBy('id', 'asc')
-		->where('state','active')
-		->paginate(10);
-		//->get();
+		$dt = new DateTime('now');
+		$date = $dt->format("Y-m-d");
+		$events = Events::orderBy('start', 'asc')
+		//->where('start', '>', $date)
+		->where([
+			['state', '=', 'active'],
+			['start', '>', $date],
+		])
+		->take(10)
+		->get();
+		if(Auth::user()) {
+			Session::put('user', Auth::user()->id);
+		}
+
 		$countries = Country::orderBy('name', 'asc')->get();
 		$categories = array(
 					array('name' => 'cat 1', 'value' =>'cat1' ),
