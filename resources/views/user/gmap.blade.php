@@ -82,8 +82,8 @@
     <div id="map"  style="height:50%;width:100%;margin: 10px; auto;"> </div>
 	<nav class="navbar navbar-bottom">
 		<input id="pac-input" class="controls" type="text" placeholder="Search Box">
-		<input id="clat" type="text" >
-		<input id="clong" type="text">
+		<!-- <input id="clat" type="text" >
+		<input id="clong" type="text"> -->
 		
 	</nav>
 	
@@ -128,19 +128,37 @@
     <script type="text/javascript">
 		sessionStorage['user'] = <?php echo Auth::User()->id; ?>;
 		var map;
-		var events = Array();
+		var events = [];
+		
 		var url = "{{ url('/user/loadevents') }}";
+		function addmarker(events) {
+			for(i = 0; i< events.length; i++ ) {
+				event = events[i];
+				var lat = Number(event.lat);
+				var lng = Number(event.long);
+				
+				var myLatLng = {lat: lat, lng: lng};
+				if(event.category == "cat1") {
+					category = "Cat 1";
+				} else {
+					category = "Cat 2";
+				}
+				var str = event.start + " - " + event.end + "    " + category;
+				var info = str + "\n" + event.title + "\n" +	event.address + ' / ' + event.country + "\n\n\n" + event.website;
+					var marker = new google.maps.Marker({
+						position: myLatLng,
+						map: map,
+						title: info
+				});
+			}
+		}
 		function loadeavents() {
 			$.ajax({
 				url: url,
 				type: 'get',
 				success: function( data, textStatus, jQxhr ){
 					var temp = jQuery.parseJSON(data);
-					var eventsdata = temp.events.data;
-					var countries = temp.countries;
-					var categories = temp.categories;
-					
-					var x = 1;
+					addmarker(temp.events);
 				},
 				error: function( jqXhr, textStatus, errorThrown ){
 					console.log( errorThrown );

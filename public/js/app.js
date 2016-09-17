@@ -20,7 +20,8 @@ function ViewModel_mapevents() {
 		var address = object.address;
 		var country = object.country;
 		var myLatLng = {lat: lat, lng: lng};
-		self.addMarker(myLatLng, object);
+		//self.addMarker(myLatLng, object);
+		map.setCenter(myLatLng);
 
 	}
 
@@ -40,7 +41,7 @@ function ViewModel_mapevents() {
 		  title: info
 		});
 		self.markers.push(marker);
-		map.setCenter(myLatLng);
+		//map.setCenter(myLatLng);
 		google.maps.event.addListener(marker, 'click', function(event, data) { 
 		var x = 1;
 		//alert('Marker has been clicked'); 
