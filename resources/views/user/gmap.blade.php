@@ -84,7 +84,9 @@
 		<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 		<!-- <input id="clat" type="text" >
 		<input id="clong" type="text"> -->
-		
+	<div style="float: right; margin-right: 20px">
+		<a class="btn btn-default" onclick="showMarkerbyCategory('cat1');" href="#">CAT 1</a> <a class="btn btn-default" onclick="showMarkerbyCategory('cat2');" href="#">CAT 2</a> 
+	</div>
 	</nav>
 	
 	<div class="viewModelmapeventscontainer container" id="viewModelmapeventscontainer">	<!-- events -->
@@ -128,12 +130,52 @@
     <script type="text/javascript">
 		sessionStorage['user'] = <?php echo Auth::User()->id; ?>;
 		var map;
-		var events = [];
-		
+		var allevents = [];
+		var markers = [];
 		var url = "{{ url('/user/loadevents') }}";
+		function setMapOnAll(map) {
+		  for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(map);
+		  }
+		}
+
+		function clearMarkers() {
+			setMapOnAll(null);
+		}
+		function showMarkerbyCategory(category) {
+			clearMarkers();
+			for(i=0;i < allevents.length;i++ ) {
+				var temp = allevents[i];
+				if(temp.category == category) {
+					addmarkerbyCat(temp);
+				}
+			}
+			
+		}
+		function addmarkerbyCat(event) {
+			var lat = Number(event.lat);
+			var lng = Number(event.long);
+			
+			var myLatLng = {lat: lat, lng: lng};
+			if(event.category == "cat1") {
+				category = "Cat 1";
+			} else {
+				category = "Cat 2";
+			}
+			var str = event.start + " - " + event.end + "    " + category;
+			var info = str + "\n" + event.title + "\n" +	event.address + ' / ' + event.country + "\n\n\n" + event.website;
+				var marker = new google.maps.Marker({
+					position: myLatLng,
+					map: map,
+					title: info
+			});
+			markers.push(marker);
+		}
 		function addmarker(events) {
 			for(i = 0; i< events.length; i++ ) {
+				
 				event = events[i];
+				allevents.push(event);
 				var lat = Number(event.lat);
 				var lng = Number(event.long);
 				
@@ -150,6 +192,7 @@
 						map: map,
 						title: info
 				});
+				markers.push(marker);
 			}
 		}
 		function loadeavents() {
@@ -159,6 +202,9 @@
 				success: function( data, textStatus, jQxhr ){
 					var temp = jQuery.parseJSON(data);
 					addmarker(temp.events);
+					/* for(i = 0; i < temp.events.length; i++) {
+						events.push(temp.events[i]);
+					} */
 				},
 				error: function( jqXhr, textStatus, errorThrown ){
 					console.log( errorThrown );

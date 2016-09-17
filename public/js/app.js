@@ -17,8 +17,6 @@ function ViewModel_mapevents() {
 		var lat = Number(object.lat);
 		var lng = Number(object.long);
 		
-		var address = object.address;
-		var country = object.country;
 		var myLatLng = {lat: lat, lng: lng};
 		//self.addMarker(myLatLng, object);
 		map.setCenter(myLatLng);
