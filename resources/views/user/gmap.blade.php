@@ -133,8 +133,12 @@
 		var allevents = [];
 		var markers = [];
 		var url = "{{ url('/user/loadevents') }}";
+		var infoWindow;
+
 		function setMapOnAll(map) {
 		  for (var i = 0; i < markers.length; i++) {
+			//markers[i].marker.setMap(map);
+			//markers[i].info.close();
 			markers[i].setMap(map);
 		  }
 		}
@@ -167,9 +171,18 @@
 				var marker = new google.maps.Marker({
 					position: myLatLng,
 					map: map,
+					label: event.id.toString(),
 					title: info
 			});
+			//infoWindow = new google.maps.InfoWindow({
+			//	map: map,
+			//	pixelOffset: new google.maps.Size(10,-30)
+			//	});
+			// infoWindow.setPosition(myLatLng);
+			// infoWindow.setContent(event.title + '   ' + category);
+			// var m = { marker: marker, info: infoWindow };
 			markers.push(marker);
+			//markers.push(m);
 		}
 		function addmarker(events) {
 			for(i = 0; i< events.length; i++ ) {
@@ -190,9 +203,18 @@
 					var marker = new google.maps.Marker({
 						position: myLatLng,
 						map: map,
+						label: event.id.toString(),
 						title: info
 				});
+				//infoWindow = new google.maps.InfoWindow({
+				//	map: map,
+				//	pixelOffset: new google.maps.Size(10,-30)
+				//});
+				//infoWindow.setPosition(myLatLng);
+				//infoWindow.setContent(event.title + '   ' + category);
+				//var m = { marker: marker, info: infoWindow} ;
 				markers.push(marker);
+				//markers.push(m);
 			}
 		}
 		function loadeavents() {
