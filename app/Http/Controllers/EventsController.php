@@ -65,10 +65,15 @@ class EventsController extends Controller
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
 		$countries = Country::orderBy('name', 'asc')->get();
+		$categories = [
+					['name' => 'Cat 1', 'value' => 'cat1' ],
+					['name' => 'Cat 2', 'value' => 'cat2'],
+					];
 		//return redirect()->action('EventsController@index');
 		 return view('admin.events',[
 			 'events' => $events,
 			 'countries' => $countries,
+			 'categories' => $categories,
 		 ]);
 	}
 
@@ -77,9 +82,13 @@ class EventsController extends Controller
 			return $this->_logout();
 		}
 		$countries = Country::orderBy('name', 'asc')->get();
-
+		$categories = [
+					['name' => 'Cat 1', 'value' => 'cat1' ],
+					['name' => 'Cat 2', 'value' => 'cat2'],
+					];
 		return view('admin.addevent',[
 			'countries' => $countries,
+			'categories' => $categories,
 		]);
 		
 	}
@@ -99,9 +108,15 @@ class EventsController extends Controller
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
 		$countries = Country::orderBy('name', 'asc')->get();
+		$categories = array(
+					array('name' => 'cat 1', 'value' =>'cat1' ),
+					array('name' => 'cat 2', 'value' =>'cat2')
+					);
+		
 		 return view('admin.events',[
 			 'events' => $events,
 			 'countries' => $countries,
+			 'categories' => $categories,
 		 ]);
 	}
 	public function deleteevent($id) {
@@ -113,9 +128,14 @@ class EventsController extends Controller
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
 		$countries = Country::orderBy('name', 'asc')->get();
+		$categories = array(
+					array('name' => 'cat 1', 'value' =>'cat1' ),
+					array('name' => 'cat 2', 'value' =>'cat2')
+					);
 		 return view('admin.events',[
 			 'events' => $events,
 			 'countries' => $countries,
+			 'categories' => $categories,
 		 ]);
 	}
 	public function editevent($id) {
