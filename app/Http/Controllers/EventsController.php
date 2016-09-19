@@ -108,10 +108,10 @@ class EventsController extends Controller
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
 		$countries = Country::orderBy('name', 'asc')->get();
-		$categories = array(
-					array('name' => 'cat 1', 'value' =>'cat1' ),
-					array('name' => 'cat 2', 'value' =>'cat2')
-					);
+		$categories = [
+					['name' => 'Cat 1', 'value' => 'cat1' ],
+					['name' => 'Cat 2', 'value' => 'cat2'],
+					];
 		
 		 return view('admin.events',[
 			 'events' => $events,
@@ -128,10 +128,10 @@ class EventsController extends Controller
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
 		$countries = Country::orderBy('name', 'asc')->get();
-		$categories = array(
-					array('name' => 'cat 1', 'value' =>'cat1' ),
-					array('name' => 'cat 2', 'value' =>'cat2')
-					);
+		$categories = [
+					['name' => 'Cat 1', 'value' => 'cat1' ],
+					['name' => 'Cat 2', 'value' => 'cat2'],
+					];
 		 return view('admin.events',[
 			 'events' => $events,
 			 'countries' => $countries,
@@ -178,10 +178,15 @@ class EventsController extends Controller
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
 		//return redirect()->action('EventsController@index');
+		$categories = [
+					['name' => 'Cat 1', 'value' => 'cat1' ],
+					['name' => 'Cat 2', 'value' => 'cat2'],
+					];
 		$countries = Country::orderBy('name', 'asc')->get();
 		 return view('admin.events',[
 			 'events' => $events,
 			 'countries' => $countries,
+			 'categories' => $categories,
 		 ]);
 
 		
