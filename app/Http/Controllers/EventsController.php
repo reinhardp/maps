@@ -59,22 +59,14 @@ class EventsController extends Controller
 		$event->zip = $request->zip;
 		$event->start = $request->start;
 		$event->end = $request->end;
+		$event->lat = $request->lat;
+		$event->long = $request->long;
 		$event->website = $request->website;
 		$event->save();
 
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
-		$countries = Country::orderBy('name', 'asc')->get();
-		$categories = [
-					['name' => 'Cat 1', 'value' => 'cat1' ],
-					['name' => 'Cat 2', 'value' => 'cat2'],
-					];
-		//return redirect()->action('EventsController@index');
-		 return view('admin.events',[
-			 'events' => $events,
-			 'countries' => $countries,
-			 'categories' => $categories,
-		 ]);
+		return redirect()->action('EventsController@index');
 	}
 
 	public function addevent() {
@@ -107,17 +99,8 @@ class EventsController extends Controller
 		$event->save();
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
-		$countries = Country::orderBy('name', 'asc')->get();
-		$categories = [
-					['name' => 'Cat 1', 'value' => 'cat1' ],
-					['name' => 'Cat 2', 'value' => 'cat2'],
-					];
+		return redirect()->action('EventsController@index');
 		
-		 return view('admin.events',[
-			 'events' => $events,
-			 'countries' => $countries,
-			 'categories' => $categories,
-		 ]);
 	}
 	public function deleteevent($id) {
 		if(Auth::user()->adminaccess == 0) {
@@ -127,16 +110,7 @@ class EventsController extends Controller
 		$event->delete();
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
-		$countries = Country::orderBy('name', 'asc')->get();
-		$categories = [
-					['name' => 'Cat 1', 'value' => 'cat1' ],
-					['name' => 'Cat 2', 'value' => 'cat2'],
-					];
-		 return view('admin.events',[
-			 'events' => $events,
-			 'countries' => $countries,
-			 'categories' => $categories,
-		 ]);
+		return redirect()->action('EventsController@index');
 	}
 	public function editevent($id) {
 		if(Auth::user()->adminaccess == 0) {
@@ -172,22 +146,15 @@ class EventsController extends Controller
 		$event->zip = $request->zip;
 		$event->start = $request->start;
 		$event->end = $request->end;
+		$event->lat = $request->lat;
+		$event->long = $request->long;
+		
 		$event->website = $request->website;
 		$event->save();
 
 		$events = Events::orderBy('id', 'asc')
 		->paginate(10);
-		//return redirect()->action('EventsController@index');
-		$categories = [
-					['name' => 'Cat 1', 'value' => 'cat1' ],
-					['name' => 'Cat 2', 'value' => 'cat2'],
-					];
-		$countries = Country::orderBy('name', 'asc')->get();
-		 return view('admin.events',[
-			 'events' => $events,
-			 'countries' => $countries,
-			 'categories' => $categories,
-		 ]);
+		return redirect()->action('EventsController@index');
 
 		
 	}

@@ -68,6 +68,18 @@
 					</datalist>
 				</div>
 			</div>
+				<div class="form-group{{ $errors->has('lat') ? ' has-error' : '' }}">
+					<label for="website" class="col-sm-3 control-label">lat</label>
+					<div class="col-sm-6">
+						<input type="text" name="lat" id="lat" class="form-control" placeholder="lat" >
+					</div>
+				</div>
+				<div class="form-group{{ $errors->has('long') ? ' has-error' : '' }}">
+					<label for="website" class="col-sm-3 control-label">long</label>
+					<div class="col-sm-6">
+						<input type="text" name="long" id="lat" class="form-control" placeholder="long" >
+					</div>
+				</div>
 			<div class="form-group{{ $errors->has('website') ? ' has-error' : '' }}">
 				<label for="website" class="col-sm-3 control-label">website</label>
 				<div class="col-sm-6">
